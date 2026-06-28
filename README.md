@@ -1,4 +1,4 @@
-# SA Caterers unit of khemchand ramkishan halwai chandni chowk— Official Website
+# SA Caterers— Official Website
 
 **Luxury Wedding & Event Catering | Delhi NCR | Est. 1998**
 
