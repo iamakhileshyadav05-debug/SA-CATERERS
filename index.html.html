@@ -386,10 +386,11 @@
       opacity: 0; transition: opacity 1.5s ease;
     }
     .hero-slide.active { opacity: 1; }
-    .hero-slide:nth-child(1) { background-image: linear-gradient(160deg,rgba(61,8,16,.85) 0%,rgba(6,4,2,.9) 100%); }
-    .hero-slide:nth-child(2) { background-image: linear-gradient(200deg,rgba(6,4,2,.9) 0%,rgba(61,8,16,.8) 100%); }
-    .hero-slide:nth-child(3) { background-image: linear-gradient(160deg,rgba(26,21,16,.9) 0%,rgba(61,8,16,.85) 100%); }
-    .hero-slide:nth-child(4) { background-image: linear-gradient(200deg,rgba(61,8,16,.85) 0%,rgba(6,4,2,.9) 100%); }
+    .hero-slide:nth-child(1) { background-image: linear-gradient(160deg,rgba(61,8,16,.72) 0%,rgba(6,4,2,.78) 100%), url('slide1.jpg'); background-position: center center; }
+    .hero-slide:nth-child(2) { background-image: linear-gradient(160deg,rgba(6,4,2,.65) 0%,rgba(61,8,16,.75) 100%), url('slide2.jpg'); background-position: center top; }
+    .hero-slide:nth-child(3) { background-image: linear-gradient(160deg,rgba(61,8,16,.68) 0%,rgba(6,4,2,.75) 100%), url('slide3.webp'); background-position: center center; }
+    .hero-slide:nth-child(4) { background-image: linear-gradient(160deg,rgba(6,4,2,.62) 0%,rgba(61,8,16,.72) 100%), url('slide4.jpg'); background-position: center center; }
+    .hero-slide:nth-child(5) { background-image: linear-gradient(160deg,rgba(61,8,16,.70) 0%,rgba(6,4,2,.76) 100%), url('slide5.jpg'); background-position: center top; }
 
     /* Animated orbs */
     .hero-orb {
@@ -1137,6 +1138,7 @@
     <div class="hero-slide"></div>
     <div class="hero-slide"></div>
     <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
   </div>
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
@@ -1168,6 +1170,7 @@
     <div class="hero-dot" onclick="goToSlide(1)"></div>
     <div class="hero-dot" onclick="goToSlide(2)"></div>
     <div class="hero-dot" onclick="goToSlide(3)"></div>
+    <div class="hero-dot" onclick="goToSlide(4)"></div>
   </div>
   <div class="hero-scroll-hint">
     <div class="scroll-line"></div>
@@ -1591,8 +1594,14 @@ function closeNav(){document.getElementById('nav-links').classList.remove('open'
 let currentSlide=0;
 const slides=document.querySelectorAll('.hero-slide');
 const heroDots=document.querySelectorAll('.hero-dot');
-function goToSlide(n){slides[currentSlide].classList.remove('active');heroDots[currentSlide].classList.remove('active');currentSlide=(n+slides.length)%slides.length;slides[currentSlide].classList.add('active');heroDots[currentSlide].classList.add('active')}
-setInterval(()=>goToSlide(currentSlide+1),5000);
+function goToSlide(n){
+  slides[currentSlide].classList.remove('active');
+  heroDots[currentSlide].classList.remove('active');
+  currentSlide=(n+slides.length)%slides.length;
+  slides[currentSlide].classList.add('active');
+  heroDots[currentSlide].classList.add('active');
+}
+setInterval(()=>goToSlide(currentSlide+1),4500);
 
 /* SCROLL REVEAL */
 const revObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.12});
