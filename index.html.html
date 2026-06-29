@@ -274,20 +274,20 @@
     .nav-logo { display: flex; flex-direction: column; line-height: 1; gap: 0.08rem; flex-shrink: 0; }
     .nav-logo-name {
       font-family: var(--font-display);
-      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
       font-weight: 600; letter-spacing: 0.04em;
       background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 50%, var(--gold-dk) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text; white-space: nowrap;
     }
     .nav-logo-unit {
-      font-size: 0.48rem;
-      font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: rgba(201,168,76,0.75);
+      font-size: 0.5rem;
+      font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; color: rgba(201,168,76,0.8);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 260px;
-      display: block;
-      margin-top: 0.05rem;
+      max-width: 380px;
+      display: block !important;
+      margin-top: 0.06rem;
     }
     .nav-logo-tagline {
       font-family: var(--font-script); font-size: clamp(0.7rem, 2vw, 0.85rem);
@@ -333,8 +333,10 @@
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
 
     @media(max-width:900px) {
-      .nav-links a:not(.nav-cta) { display: none; }
       .nav-links { gap: 1rem; }
+    }
+    @media(max-width:768px) {
+      .nav-links a:not(.nav-cta):not(.hamburger) { display: none; }
     }
     @media(max-width:768px) {
       .hamburger { display: flex; }
@@ -386,11 +388,11 @@
       opacity: 0; transition: opacity 1.5s ease;
     }
     .hero-slide.active { opacity: 1; }
-    .hero-slide:nth-child(1) { background-image: linear-gradient(160deg,rgba(61,8,16,.72) 0%,rgba(6,4,2,.78) 100%), url('slide1.jpg'); background-position: center center; }
-    .hero-slide:nth-child(2) { background-image: linear-gradient(160deg,rgba(6,4,2,.65) 0%,rgba(61,8,16,.75) 100%), url('slide2.jpg'); background-position: center top; }
-    .hero-slide:nth-child(3) { background-image: linear-gradient(160deg,rgba(61,8,16,.68) 0%,rgba(6,4,2,.75) 100%), url('slide3.webp'); background-position: center center; }
-    .hero-slide:nth-child(4) { background-image: linear-gradient(160deg,rgba(6,4,2,.62) 0%,rgba(61,8,16,.72) 100%), url('slide4.jpg'); background-position: center center; }
-    .hero-slide:nth-child(5) { background-image: linear-gradient(160deg,rgba(61,8,16,.70) 0%,rgba(6,4,2,.76) 100%), url('slide5.jpg'); background-position: center top; }
+    .hero-slide:nth-child(1) { background-image: linear-gradient(160deg,rgba(61,8,16,.90) 0%,rgba(6,4,2,.95) 100%); }
+    .hero-slide:nth-child(2) { background-image: linear-gradient(200deg,rgba(6,4,2,.92) 0%,rgba(61,8,16,.88) 100%); }
+    .hero-slide:nth-child(3) { background-image: linear-gradient(160deg,rgba(40,12,16,.92) 0%,rgba(61,8,16,.90) 100%); }
+    .hero-slide:nth-child(4) { background-image: linear-gradient(200deg,rgba(61,8,16,.88) 0%,rgba(6,4,2,.92) 100%); }
+    .hero-slide:nth-child(5) { background-image: linear-gradient(160deg,rgba(6,4,2,.90) 0%,rgba(61,8,16,.92) 100%); }
 
     /* Animated orbs */
     .hero-orb {
@@ -1138,7 +1140,6 @@
     <div class="hero-slide"></div>
     <div class="hero-slide"></div>
     <div class="hero-slide"></div>
-    <div class="hero-slide"></div>
   </div>
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
@@ -1170,7 +1171,6 @@
     <div class="hero-dot" onclick="goToSlide(1)"></div>
     <div class="hero-dot" onclick="goToSlide(2)"></div>
     <div class="hero-dot" onclick="goToSlide(3)"></div>
-    <div class="hero-dot" onclick="goToSlide(4)"></div>
   </div>
   <div class="hero-scroll-hint">
     <div class="scroll-line"></div>
