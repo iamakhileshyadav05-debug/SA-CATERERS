@@ -336,11 +336,7 @@
       .nav-links { gap: 1rem; }
     }
     @media(max-width:768px) {
-      .nav-links a:not(.nav-cta):not(.hamburger) { display: none; }
-    }
-    @media(max-width:768px) {
       .hamburger { display: flex; }
-      .nav-links a:not(.nav-cta) { display: flex; }
       .nav-links {
         position: fixed; top: 0; right: -100%;
         width: min(75vw, 280px); height: 100vh;
@@ -348,12 +344,14 @@
         backdrop-filter: blur(30px);
         border-left: 1px solid rgba(201,168,76,0.15);
         flex-direction: column; justify-content: center;
+        align-items: flex-start;
         gap: 2rem; padding: 2rem;
         transition: right var(--t) var(--ease);
         z-index: 1001;
+        pointer-events: none;
       }
-      .nav-links.open { right: 0; }
-      .nav-links a { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+      .nav-links.open { right: 0; pointer-events: auto; }
+      .nav-links a { display: flex !important; font-size: 0.85rem; color: rgba(255,255,255,0.75); }
       .nav-logo-unit { max-width: 200px; font-size: 0.46rem; }
     }
     @media(max-width:400px) {
@@ -1494,7 +1492,9 @@
         </div>
         <div class="form-group"><label for="f-date">Event Date</label><input type="date" id="f-date" /></div>
         <div class="form-group"><label for="f-msg">Additional Requirements</label><textarea id="f-msg" placeholder="Tell us about your vision, cuisine preferences, venue details…"></textarea></div>
-        <button class="form-submit" onclick="sendWhatsApp()">Send Enquiry via WhatsApp</button>
+        <div id="form-status" style="display:none;font-size:0.78rem;padding:0.85rem 1rem;margin-bottom:1rem;border-radius:2px;line-height:1.6"></div>
+        <button class="form-submit" id="form-submit-btn" onclick="sendWhatsApp()">Send Enquiry via WhatsApp</button>
+        <p style="font-size:0.68rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:0.85rem;line-height:1.6">Our team will respond on WhatsApp within a few hours.</p>
       </div>
     </div>
   </div>
@@ -1630,16 +1630,46 @@ setInterval(()=>goToTesti(tCur+1),6000);
 /* FAQ */
 function toggleFaq(btn){const item=btn.parentElement;const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open')}
 
-/* WHATSAPP FORM */
+/* CONTACT FORM — EMAIL CONFIRMATION + WHATSAPP */
+function showFormStatus(message, type) {
+  const statusEl = document.getElementById('form-status');
+  statusEl.style.display = 'block';
+  statusEl.textContent = message;
+  if (type === 'success') {
+    statusEl.style.background = 'rgba(74,222,128,0.1)';
+    statusEl.style.border = '1px solid rgba(74,222,128,0.3)';
+    statusEl.style.color = '#86EFAC';
+  } else if (type === 'error') {
+    statusEl.style.background = 'rgba(239,68,68,0.1)';
+    statusEl.style.border = '1px solid rgba(239,68,68,0.3)';
+    statusEl.style.color = '#FCA5A5';
+  } else {
+    statusEl.style.background = 'rgba(201,168,76,0.08)';
+    statusEl.style.border = '1px solid rgba(201,168,76,0.25)';
+    statusEl.style.color = '#E8C97E';
+  }
+}
+
 function sendWhatsApp(){
-  const name=document.getElementById('f-name').value.trim()||'Not provided';
-  const phone=document.getElementById('f-phone').value.trim()||'Not provided';
-  const event=document.getElementById('f-event').value||'Not specified';
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const event=document.getElementById('f-event').value;
   const guests=document.getElementById('f-guests').value.trim()||'Not specified';
   const date=document.getElementById('f-date').value||'Not specified';
   const msg=document.getElementById('f-msg').value.trim()||'No additional requirements';
-  const text=`Hello SA Caterers! \n\n*New Event Enquiry*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Event:* ${event}\n*Guest Count:* ${guests}\n*Date:* ${date}\n*Requirement:* ${msg}\n\nKindly get back to me at your earliest convenience. Thank you!`;
-  window.open(`https://wa.me/919212156272?text=${encodeURIComponent(text)}`,'_blank');
+
+  if (!name || !phone) {
+    showFormStatus('Please enter your name and phone number.', 'error');
+    return;
+  }
+
+  showFormStatus('Redirecting you to WhatsApp...', 'info');
+
+  const text=`Hello SA Caterers!\n\n*New Event Enquiry*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Event:* ${event || 'Not specified'}\n*Guest Count:* ${guests}\n*Date:* ${date}\n*Requirement:* ${msg}\n\nKindly get back to me at your earliest convenience. Thank you!`;
+
+  setTimeout(() => {
+    window.open(`https://wa.me/919212156272?text=${encodeURIComponent(text)}`,'_blank');
+  }, 400);
 }
 </script>
 
